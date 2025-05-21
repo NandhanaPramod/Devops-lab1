@@ -1,0 +1,67 @@
+# Subscription IDs
+subscription_id     = "your-subscription-id"
+hub_subscription_id = "your-hub-subscription-id"
+
+# Other variables
+location    = "ukwest"
+environment = "non-prod"
+basename    = "spoke"
+
+# VNet CIDR block
+vnet_cidr = ["172.16.0.0/16"]
+
+# Subnet configurations
+subnets = {
+  web = {
+    name             = "web-subnet"
+    address_prefixes = ["172.16.1.0/24"]
+    nsg_name         = "web-nsg"
+  }
+  app = {
+    name             = "app-subnet"
+    address_prefixes = ["172.16.2.0/24"]
+    nsg_name         = "app-nsg"
+  }
+  data = {
+    name             = "data-subnet"
+    address_prefixes = ["172.16.3.0/24"]
+    nsg_name         = "data-nsg"
+  }
+}
+
+# Security rules
+security_rules = [
+  {
+    name                       = "AllowVnetInBound"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "VirtualNetwork"
+    destination_address_prefix = "VirtualNetwork"
+  }
+]
+
+# Security groups
+security_group = [
+  {
+    name = "app-nsg"
+    rule = ["AllowVnetInBound"]
+  },
+  {
+    name = "data-nsg"
+    rule = ["AllowVnetInBound"]
+  },
+  {
+    name = "web-nsg"
+    rule = ["AllowVnetInBound"]
+  }
+]
+
+# DDoS protection
+ddos_name = "ddos-protection"
+
+# Resource group creation
+create_resource_group = true 
