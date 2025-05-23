@@ -1,0 +1,54 @@
+# Basic configuration
+location    = "East US"
+environment = "prod"
+basename    = "spoke"
+
+# VNet CIDR block
+vnet_cidr = ["10.1.0.0/16"]
+
+# Subnet configurations
+subnets = {
+  subnet1 = {
+    name              = "subnet1"
+    address_prefixes  = ["10.1.1.0/24"]
+    service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault"]
+    security_rules    = [
+      {
+        name                       = "AllowSSH"
+        priority                   = 100
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+      }
+    ]
+  }
+}
+
+# Hub VNet peering configuration
+hub_vnet_id             = "/subscriptions/your-subscription-id/resourceGroups/hub-rg/providers/Microsoft.Network/virtualNetworks/hub-vnet"
+hub_vnet_name           = "hub-vnet"
+hub_resource_group_name = "hub-rg"
+
+# Resource group creation
+create_resource_group = true
+
+# Default tags
+default_tags = {
+  Project     = "Spoke-Network"
+  ManagedBy   = "Terraform"
+  Environment = "Production"
+}
+
+vnet_name             = "spoke-vnet"
+resource_group_name   = "spoke-rg"
+vnet_address_space    = ["10.1.0.0/16"]
+dns_servers           = ["168.63.129.16"]
+
+tags = {
+  Environment = "Production"
+  Project     = "SpokeVNet"
+} 

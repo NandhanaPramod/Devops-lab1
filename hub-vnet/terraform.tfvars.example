@@ -35,6 +35,11 @@ expressroute_sku_tier      = "Premium"
 expressroute_sku_family    = "MeteredData"
 gateway_sku               = "ErGw1AZ"
 
+# Spoke VNet peering configuration
+spoke_vnet_id             = "/subscriptions/your-subscription-id/resourceGroups/spoke-rg/providers/Microsoft.Network/virtualNetworks/spoke-vnet"
+spoke_vnet_name           = "spoke-vnet"
+spoke_resource_group_name = "spoke-rg"
+
 # Resource group creation
 create_resource_group = true
 
