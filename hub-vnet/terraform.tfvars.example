@@ -1,0 +1,46 @@
+# Basic configuration
+location    = "ukwest"
+environment = "prod"
+basename    = "hub"
+
+# VNet CIDR block
+vnet_cidr = ["10.0.0.0/16"]
+
+# Subnet configurations
+subnets = {
+  GatewaySubnet = {
+    name             = "GatewaySubnet"
+    address_prefixes = ["10.0.0.0/24"]
+  }
+  AzureBastionSubnet = {
+    name             = "AzureBastionSubnet"
+    address_prefixes = ["10.0.1.0/24"]
+  }
+  AzureFirewallSubnet = {
+    name             = "AzureFirewallSubnet"
+    address_prefixes = ["10.0.2.0/24"]
+  }
+  SharedServicesSubnet = {
+    name             = "SharedServicesSubnet"
+    address_prefixes = ["10.0.3.0/24"]
+    service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage"]
+  }
+}
+
+# ExpressRoute configuration
+expressroute_provider      = "Equinix"
+expressroute_peering_location = "London"
+expressroute_bandwidth     = 1000
+expressroute_sku_tier      = "Premium"
+expressroute_sku_family    = "MeteredData"
+gateway_sku               = "ErGw1AZ"
+
+# Resource group creation
+create_resource_group = true
+
+# Default tags
+default_tags = {
+  Project     = "Hub-Network"
+  ManagedBy   = "Terraform"
+  Environment = "Production"
+} 
